@@ -12,5 +12,4 @@ plan.out
 .forge
 
 # --- Project ---
-deploy.env
 *.env

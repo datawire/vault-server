@@ -27,7 +27,7 @@ spec:
             topologyKey: kubernetes.io/hostname
       containers:
       - name: vault-init
-        image: {{ vault_init_image }}
+        image: {{ build.profile.vault_init_image }}
         imagePullPolicy: Always
         env:
         - name: CHECK_INTERVAL
@@ -43,7 +43,7 @@ spec:
               name: vault
               key: kms_key_id
       - name: vault
-        image: {{ vault_image }}
+        image: {{ build.profile.vault_image }}
         imagePullPolicy: Always
         args: ['server']
         securityContext:

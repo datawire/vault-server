@@ -2,7 +2,7 @@ region = "us-central1"
 project = "datawireio-cloud"
 zone = "us-central1-a"
 vault_server_count = 3
-vault_init_crypto_key_id = "us-central1/vault/vault-init"
+vault_init_crypto_key_id = "global/vault/vault-init"
 
 node_labels = {
   "datawire.io/team"        = "syseng"

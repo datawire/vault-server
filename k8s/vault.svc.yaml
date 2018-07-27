@@ -7,7 +7,7 @@ metadata:
     app: vault
 spec:
   type: LoadBalancer
-  loadBalancerIP: {{ env.VAULT_LOAD_BALANCER_IP }}
+  loadBalancerIP: {{ env.VAULT_LOAD_BALANCER_ADDRESS }}
   ports:
     - name: http
       port: 8200
