@@ -1,0 +1,16 @@
+# --- IntelliJ IDEA ---
+.idea
+*.iml
+
+# --- Terraform ---
+tfplan
+plan.out
+.terraform
+*.tfstate*
+
+# --- Forge ---
+.forge
+
+# --- Project ---
+deploy.env
+*.env

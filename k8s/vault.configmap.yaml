@@ -1,0 +1,10 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: vault
+  labels:
+    app: vault
+data:
+  gcs_bucket_name: {{ env.VAULT_GCS_BUCKET_NAME }}
+  kms_key_id: {{ env.VAULT_INIT_KMS_KEY_ID }}
+  load_balancer_address: {{ env.VAULT_LOAD_BALANCER_ADDRESS }}
