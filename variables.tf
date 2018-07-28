@@ -47,10 +47,20 @@ variable "kms_crypto_key_roles" {
   ]
 }
 
-variable "vault_init_crypto_key_id" {
-  description = "ID of the Google KMS CryptoKey that vault-init uses"
+variable "keyring_location" {
+  description = "location of the Google Cloud KMS keyring"
+  default = "global"
 }
 
+variable "keyring_name" {
+  description = "name of the Google Cloud KMS keyring"
+  default = "vault"
+}
+
+variable "vault_init_crypto_key_name" {
+  description = "name of the vault-init Google Cloud KMS crypto key"
+  default = "vault-init"
+}
 
 variable "vault_server_count" {
   description = "Number of vault servers (also kubernetes nodes)"
@@ -79,10 +89,6 @@ variable "node_image_type" {
   default = "COS"
 }
 
-variable "node_local_ssd_count" {
-  default = 0
-}
-
 variable "node_labels" {
   type        = "map"
   description = "Map of key/value pairs to label Nodes with. These will propogate into Kubernetes as Node Labels"
@@ -91,5 +97,5 @@ variable "node_labels" {
 
 variable "node_machine_type" {
   description = "Name of the Google Compute Engine machine type"
-  default = "n1-standard-1"
+  default = "n1-standard-2"
 }

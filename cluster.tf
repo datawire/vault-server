@@ -65,7 +65,7 @@ resource "google_storage_bucket_iam_member" "vault_server" {
 # Grant service account access to the key
 resource "google_kms_crypto_key_iam_member" "vault_init" {
   count         = "${length(var.kms_crypto_key_roles)}"
-  crypto_key_id = "${var.vault_init_crypto_key_id}"
+  crypto_key_id = "${local.tf_vault_init_crypto_key_id}"
   role          = "${element(var.kms_crypto_key_roles, count.index)}"
   member        = "serviceAccount:${google_service_account.vault_server.email}"
 }
@@ -82,10 +82,18 @@ resource "google_container_cluster" "vault" {
   network            = "${google_compute_network.cluster_network.self_link}"
   node_version       = "${data.google_container_engine_versions.latest.latest_node_version}"
 
+  master_auth {
+    password = ""
+    username = ""
+
+    client_certificate_config {
+      issue_client_certificate = false
+    }
+  }
+
   node_config {
     disk_size_gb    = "${var.node_disk_size_gb}"
     disk_type       = "${var.node_disk_type}"
-    local_ssd_count = "${var.node_local_ssd_count}"
     labels          = "${var.node_labels}"
     image_type      = "${var.node_image_type}"
     machine_type    = "${var.node_machine_type}"
@@ -107,7 +115,6 @@ resource "google_container_cluster" "vault" {
   depends_on = ["google_project_service.service"]
 }
 
-# Provision IP
 resource "google_compute_address" "vault" {
   name    = "vault-lb"
   region  = "${var.region}"

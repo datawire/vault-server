@@ -1,10 +1,9 @@
----
-name: vault
+name: vaultingkube
 
 profiles:
   default:
     vault_init_image: sethvargo/vault-init:0.1.0
-    vault_image: vault:0.10.4
+    vault_image: vault:0.10.1
 
 branches:
   "*": default

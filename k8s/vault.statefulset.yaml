@@ -31,7 +31,7 @@ spec:
         imagePullPolicy: Always
         env:
         - name: CHECK_INTERVAL
-          value: "5"
+          value: "10"
         - name: GCS_BUCKET_NAME
           valueFrom:
             configMapKeyRef:

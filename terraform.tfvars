@@ -1,11 +1,5 @@
-region = "us-central1"
 project = "datawireio-cloud"
-zone = "us-central1-a"
-vault_server_count = 3
-vault_init_crypto_key_id = "global/vault/vault-init"
+region  = "us-central1"
+zone    = "us-central1-a"
 
-node_labels = {
-  "datawire.io/team"        = "syseng"
-  "datawire.io/env"         = "prd"
-  "datawire.io/terraformed" = "true"
-}
+vault_server_count = 3
