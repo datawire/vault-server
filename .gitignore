@@ -13,3 +13,4 @@ plan.out
 
 # --- Project ---
 *.env
+!vault.env

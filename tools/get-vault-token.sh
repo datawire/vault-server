@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -o nounset
 
 export VAULT_TOKEN=$(gsutil cat gs://${GCS_BUCKET_NAME}/root-token.enc | \
   base64 -d | \
@@ -10,3 +11,5 @@ export VAULT_TOKEN=$(gsutil cat gs://${GCS_BUCKET_NAME}/root-token.enc | \
     --ciphertext-file - \
     --plaintext-file -
 )
+
+printf "$VAULT_TOKEN"
