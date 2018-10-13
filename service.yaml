@@ -3,8 +3,8 @@ name: vault
 
 profiles:
   default:
-    vault_init_image: sethvargo/vault-init:0.1.0
-    vault_image: vault:0.10.4
+    vault_init_image: sethvargo/vault-init:0.1.1
+    vault_image: vault:0.11.3
 
 branches:
   "*": default

@@ -28,6 +28,16 @@ resource "tls_self_signed_cert" "vault_ca" {
   }
 }
 
+resource "null_resource" "vault_ca_to_file" {
+  triggers {
+    uuid = "${uuid()}"
+  }
+
+  provisioner "local-exec" {
+    command = "echo '${tls_self_signed_cert.vault_ca.cert_pem}' > ${path.module}/tls/ca.pem && chmod 0600 ${path.module}/tls/ca.pem"
+  }
+}
+
 # Create the Vault server certificates
 resource "tls_private_key" "vault" {
   algorithm = "RSA"
@@ -35,6 +45,16 @@ resource "tls_private_key" "vault" {
 
   provisioner "local-exec" {
     command = "echo '${self.private_key_pem}' > ${path.module}/tls/vault.key && chmod 0600 ${path.module}/tls/vault.key"
+  }
+}
+
+resource "null_resource" "vault_key_to_file" {
+  triggers {
+    uuid = "${uuid()}"
+  }
+
+  provisioner "local-exec" {
+    command = "echo '${tls_private_key.vault.private_key_pem}' > ${path.module}/tls/vault.key && chmod 0600 ${path.module}/tls/vault.key"
   }
 }
 
@@ -81,5 +101,15 @@ resource "tls_locally_signed_cert" "vault" {
 
   provisioner "local-exec" {
     command = "echo '${self.cert_pem}' > ${path.module}/tls/vault.pem && echo '${tls_self_signed_cert.vault_ca.cert_pem}' >> ${path.module}/tls/vault.pem && chmod 0600 ${path.module}/tls/vault.pem"
+  }
+}
+
+resource "null_resource" "vault_pem_to_file" {
+  triggers {
+    uuid = "${uuid()}"
+  }
+
+  provisioner "local-exec" {
+    command = "echo '${tls_locally_signed_cert.vault.cert_pem}' > ${path.module}/tls/vault.pem && echo '${tls_self_signed_cert.vault_ca.cert_pem}' >> ${path.module}/tls/vault.pem && chmod 0600 ${path.module}/tls/vault.pem"
   }
 }

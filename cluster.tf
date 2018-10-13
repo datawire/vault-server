@@ -113,6 +113,13 @@ resource "google_container_cluster" "vault" {
   }
 
   depends_on = ["google_project_service.service"]
+  timeouts {
+    // Generous Update Timeout
+    //
+    // Masters takes ~5min
+    // Workers take about 4-7 minutes each (and possibly longer depending on disruption budgets and load)
+    update = "${var.vault_server_count * 15}m"
+  }
 }
 
 resource "google_compute_address" "vault" {
